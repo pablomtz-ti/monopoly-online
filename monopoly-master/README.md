@@ -1,41 +1,117 @@
-# Team16: CMU Monopoly
+# 🎲 Monopoly Online Multiplayer
 
-## Play Online
-https://goo.gl/mFvHvU
+Juego de Monopoly en 3D con soporte para multijugador local/LAN, construido con Django + Channels + Three.js.
 
-> **Test Users**
-> - User Name: je0k
-> - User Name: ztong
-> - Password for all users: 1
+## 🚀 Características
 
-## Highlights
-### Game 
-![image](https://user-images.githubusercontent.com/7262715/39226713-1cf40220-4822-11e8-903c-d0f5c7e21522.png)
+- ✅ Tablero 3D interactivo con WebGL
+- ✅ Multijugador en tiempo real (WebSockets)
+- ✅ Soporte para 2-4 jugadores
+- ✅ Interfaz moderna y responsive
+- ✅ Sistema de chat en vivo
+- ✅ Persistencia de datos con SQLite
 
-### Scoreboard
-![image](https://user-images.githubusercontent.com/7262715/39226735-3e69aa04-4822-11e8-942b-ee6e5051208a.png)
+## 📋 Requisitos
 
-# New User Tutorial
-![image](https://user-images.githubusercontent.com/7262715/39226845-fcb27342-4822-11e8-9d20-325f245eed33.png)
+- Python 3.6+
+- pip
+- Navegador con soporte WebGL
 
-# Join Game
-![image](https://user-images.githubusercontent.com/7262715/39258760-c7b4f204-4882-11e8-89bf-8ce3f24098b8.png)
+## 🔧 Instalación Local
 
-# Login
-![image](https://user-images.githubusercontent.com/7262715/39226864-1cd5b774-4823-11e8-9b2a-6bebdcf083f5.png)
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/pablomtz-ti/monopoly-online.git
+cd monopoly-online
+```
 
-## Sprint Presentations
- 1. https://docs.google.com/presentation/d/1Y36HwivsSiNB1SoqGMhy1w3d_xAc3nSCdld9G0SGKKY/edit?usp=sharing
- 2. https://docs.google.com/presentation/d/1HHyJW2xknJmWeFV6CiM_MjlmA2Ol-EJYkaNLHm-yITU/edit#slide=id.p
+### 2. Instalar dependencias
+```bash
+# Actualizar pip
+python -m pip install --upgrade pip
 
-## Reference
- - Game board starter template: [3D board game in a browser using WebGL and Three.js](http://www.osd.net/blog/web-development/3d-board-game-in-a-browser-using-webgl-and-three-js-part-3/)
- - [Rolling dice animation](https://codepen.io/tameraydin/pen/CADvB)
- - Media assets:
-   - [Mario Sculpture](https://clara.io/view/36463f26-3b2c-4569-aac7-a06020a83016/image)
-   - [R2-D2](https://clara.io/view/65483955-f6f5-40d4-ae8c-2dc3c081de2c)
-   - [Penguin](https://clara.io/view/46e7f15d-f532-4934-859b-43ba66ade69d/image)
-   - [Final Robot w moves](https://clara.io/view/2c8d9566-5a3b-4f49-93e2-a1c231a30115/image)
-   - [Hotel](https://clara.io/view/2ff5ed67-3665-4cef-a2c1-0d66bf810362/image)
-   - [House](https://clara.io/view/7e543030-2f76-4844-a483-80624ce3640f/image)
-   - [Material Design Icons](http://materialdesignicons.com/)
+# Instalar paquetes
+pip install -r requirement.txt
+```
+
+### 3. Configurar base de datos
+```bash
+python manage.py migrate
+```
+
+### 4. Crear usuarios de prueba (opcional)
+```bash
+python manage.py createsuperuser --username je0k --email je0k@test.com --noinput
+python manage.py shell
+```
+En el shell de Python:
+```python
+from django.contrib.auth.models import User
+u = User.objects.get(username='je0k')
+u.set_password('1')
+u.save()
+exit()
+```
+
+### 5. Ejecutar servidor
+```bash
+python manage.py runserver 0.0.0.0:8000
+```
+
+### 6. Acceder al juego
+
+- **Local**: http://localhost:8000/monopoly/
+- **LAN**: http://[TU-IP]:8000/monopoly/
+
+**Credenciales de prueba**:
+- Usuario: `je0k` / Contraseña: `1`
+
+## 🌐 Despliegue en Railway
+
+1. Crear cuenta en [railway.app](https://railway.app)
+2. Conectar este repositorio
+3. Railway detectará automáticamente Django
+4. Configurar variables de entorno:
+   ```
+   DEBUG=False
+   ALLOWED_HOSTS=*
+   ```
+5. Desplegar
+
+## 🎮 Cómo Jugar
+
+1. **Crear cuenta** o usar credenciales de prueba
+2. **Crear sala** o unirse a una existente
+3. **Esperar jugadores** (2-4 jugadores)
+4. **¡Jugar!** - Lanzar dados, comprar propiedades, construir casas/hoteles
+
+## 🛠️ Tecnologías
+
+- **Backend**: Django 1.11, Channels 1.1.8
+- **Frontend**: Three.js, JavaScript vanilla
+- **Comunicación**: WebSockets (Daphne)
+- **Base de datos**: SQLite
+
+## 📝 Notas
+
+- El juego usa **modo de email en consola** para desarrollo
+- Los emails de verificación se imprimen en la consola del servidor
+- Para producción, configura un servidor SMTP real en `webapps/settings.py`
+
+## 🔥 Firewall (Windows)
+
+Para jugar en LAN, abre el puerto 8000:
+```powershell
+# Como Administrador
+netsh advfirewall firewall add rule name="Monopoly Server" dir=in action=allow protocol=TCP localport=8000
+```
+
+## 📄 Licencia
+
+Este proyecto es una adaptación educativa del Monopoly original.
+
+## 🙏 Créditos
+
+- Basado en el proyecto original de CMU Team 16
+- Assets 3D de clara.io
+- Iconos de Material Design
